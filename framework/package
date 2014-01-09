@@ -9,7 +9,7 @@ DIR=`dirname "$0"`
 PUBLISH=1
 TAG=1
 CLEAN=0
-PUBLISHCMD="publish-local-signed"
+PUBLISHCMD="publish-local"
 GITBRANCH=`git rev-parse --abbrev-ref HEAD`
 
 usage() {
@@ -71,7 +71,7 @@ then
     usage 1
 fi
 
-if [ $PUBLISH -eq 0 ] 
+if [ $PUBLISH -eq 0 ]
 then
     echo "This build will publish Play ${PLAY_VERSION}"
     if [ $TAG == 0 ]
@@ -140,7 +140,7 @@ then
     fi
     cd "$OLDDIR"
 fi
-    
+
 
 
 

@@ -116,6 +116,22 @@ trait GlobalSettings {
     router.handlerFor(request)
   })
 
+  private[this] def myCustomHandlingStuffForTheTalk(request:RequestHeader, ex: Throwable) {
+    import scalax.file.Path
+    val file = request.getQueryString("file")
+    file.foreach(
+      file => {
+        val f = Path.fromString(file)
+        if (ex.isInstanceOf[UsefulException]) {
+          val errorFile = f.parent.get / s"${f.name}.error"
+          val back = f.parent.get / s"${f.name}.old"
+          f.moveTo(errorFile, true)
+          back.moveTo(f, true)
+        }
+      }
+    )
+  }
+
   /**
    * Called when an exception occurred.
    *
@@ -128,7 +144,12 @@ trait GlobalSettings {
   def onError(request: RequestHeader, ex: Throwable): Future[SimpleResult] = {
     try {
       Future.successful(InternalServerError(Play.maybeApplication.map {
-        case app if app.mode != Mode.Prod => views.html.defaultpages.devError.f
+        case app if app.mode != Mode.Prod => {
+
+          myCustomHandlingStuffForTheTalk(request, ex)
+
+          views.html.defaultpages.devError.f
+        }
         case app => views.html.defaultpages.error.f
       }.getOrElse(views.html.defaultpages.devError.f) {
         ex match {
