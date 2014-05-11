@@ -69,7 +69,7 @@ resolvers ++= Seq(
   ...
 )
 
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3-SNAPSHOT")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3-noootsab-SNAPSHOT")
 ```
 
 to project/plugins.sbt. 

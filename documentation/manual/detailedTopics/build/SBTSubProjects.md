@@ -79,7 +79,7 @@ import Keys._
 object Common {
   val settings: Seq[Setting[_]] = {
     organization := "com.example",
-    version := "1.2.3-SNAPSHOT"
+    version := "1.2.3-noootsab-SNAPSHOT"
   }
 
   val fooDependency = "com.foo" %% "foo" % "2.4"

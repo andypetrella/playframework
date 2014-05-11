@@ -40,10 +40,10 @@ if [ -f conf/application.conf -o -f conf/reference.conf ] || [ -d project ]; the
       exit 1
     fi
   fi
-  
+
   if test "$1" = "debug"; then
     JPDA_PORT="9999"
-    shift      
+    shift
   fi
 
   if [ -n "$1" ]; then
@@ -51,7 +51,7 @@ if [ -f conf/application.conf -o -f conf/reference.conf ] || [ -d project ]; the
   else
     JPDA_PORT="${JPDA_PORT}" "$dir/framework/build" play
   fi
-  
+
 else
   "$JAVA" -Dplay.home="$dir/framework" -Dsbt.boot.properties="$dir/framework/sbt/play.boot.properties" ${PLAY_OPTS} -jar "$dir/framework/sbt/sbt-launch.jar" "$@"
 fi
